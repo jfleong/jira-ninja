@@ -1,8 +1,19 @@
 <!doctype html>
 
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
 <body>
-    <div id="mainPopup">
-        <button id="collapseSprintsButton">collapse sprints</button>
+    <div id="mainPopup" class="section">
+        <p>
+            <button id="collapseAllSprintsButton" class="btn btn-lg btn-default">Collapse All sprints</button>
+        </p>
+        <p>
+            <button id="showVisibleButton" class="btn btn-lg btn-default">Show sprints with visible issues</button>
+        </p>
     </div>
     <script src="popup.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </body>

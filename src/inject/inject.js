@@ -2,49 +2,51 @@
  * Collapse all sprints
  */
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        if (request.action == "collapseAllSprints") {
-            collapseSprints(request, sender, sendResponse);
-            // this is required to use sendResponse asynchronously
-            return true;
-        }
-    }
-);
-
-function collapseAllSprints(request, sender, sendResponse) {
-  var x = document.querySelectorAll(".ghx-open .aui-iconfont-expanded");
-   var i;
-   for (i = 0; i < x.length; i++) {
-     x[i].click();
-   }
-}
-
-/*
- * I wanted a way to collapse all sprints that had 0 visible issues because
- * When doing sprint planning we look at individual users and I want to see
- * all the tickets from all the sprints for an individual
- */
-chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-      if (request.action == "collapseNoVisibleIssueSprints") {
-          collapseNoVisibleIssueSprints(request, sender, sendResponse);
+      console.log(`Received ${request.action} Message`);
+      if (request.action == "collapseAllSprints") {
+          collapseAllSprints(request, sender, sendResponse);
           // this is required to use sendResponse asynchronously
           return true;
       }
+      if (request.action == "showSprintsWithIssues") {
+        showSprintsWithIssues(request, sender, sendResponse);
+        // this is required to use sendResponse asynchronously
+        return true;
+    }
   }
 );
+
+function collapseAllSprints(request, sender, sendResponse) {
+  var openSprints = document.querySelectorAll(".ghx-backlog-container .ghx-sprint-active .js-sprint-container .ui-droppable .ghx-open");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    openSprints[i].children(".ghx-iconfont .aui-icon .aui-icon-small .aui-iconfont-expanded")[0].click();
+  }
+}
 
 /*
  * If there is 0 of xxx issues visible then collapse, otherwise leave it open
  */
-function collapseNoVisibleIssueSprints(request, sender, sendResponse) {
-  var x = document.querySelectorAll(".ghx-open .aui-iconfont-expanded");
+function showSprintsWithIssues(request, sender, sendResponse) {
+  var openSprints = document.querySelectorAll(".ghx-backlog-container .ghx-sprint-active .js-sprint-container .ui-droppable .ghx-open");
+  var closedSprints = document.querySelectorAll(".ghx-backlog-container .ghx-sprint-active .js-sprint-container .ui-droppable .ghx-closed");
   var i
-  for (i = 0; i < x.length; i++) {
-    checkbox = x[i];
-    issue_count = checkbox.siblings(".ghx-issue-count")[0];
+  for (i = 0; i < openSprints.length; i++) {
+    sprint = openSprints[i];
+    issue_count = sprint.children(".ghx-issue-count")[0];
     if (issue_count.innerHTML.toLowerCase().indexOf("0 ") === -1) {
-      x[i].click();
+      openSprints[i].children(".ghx-iconfont .aui-icon .aui-icon-small .aui-iconfont-expanded")[0].click();
+    }
+  }
+  for (i = 0; i < closedSprints.length; i++) {
+    sprint = closedSprints[i];
+    issue_count = sprint.children(".ghx-issue-count")[0];
+    if (issue_count.innerHTML.toLowerCase().indexOf("0 ") === -1) {
+      continue;
+    }
+    else {
+      closedSprints[i].children(".ghx-iconfont .aui-icon .aui-icon-small .aui-iconfont-expanded")[0].click();
     }
   }
 }
