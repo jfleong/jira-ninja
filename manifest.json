@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Jira Ninja",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A chrome extension to easily navigate JIRA",
     "homepage_url": "http://github.com/jfleong/jira-ninja",
     "icons": {
